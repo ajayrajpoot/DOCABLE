@@ -1,0 +1,94 @@
+ul {
+    border-right: 2px solid #ddd;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+
+ul>li {
+    display: block;
+    padding: 20px;
+    position: relative;
+}
+
+ul>li.active {
+    border-right: 2px solid #0C0;
+    position: relative;
+    margin-right: -2px;
+}
+
+ul>li:before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background: #0C0;
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    transform: translateY(-50%)
+}
+
+.btnUpdate {
+    input[type='button'] {
+        width: 49%;
+        margin: 2px;
+    }
+}
+
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    color: grey;
+}
+
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
+}
+
+.panel-heading {
+    background: #000;
+    color: #fff;
+    padding: 1px 10px 1px 10px;
+    i {
+        float: right;
+    }
+}
+
+.panel-heading:hover {
+    cursor: pointer
+}
+
+.panel-body {
+    padding: 5px 10px 5px 10px;
+}
+
+.card-header {
+    background: #000;
+    color: #fff;
+    padding: 1px 10px 1px 10px;
+    i {
+        float: right;
+    }
+}
+
+.card-header:hover {
+    cursor: pointer
+}
+
+.card-body {
+    padding: 5px 10px 5px 10px;
+}
+
+.input-title {
+    border-bottom: 2px solid #007bff
+}
+
+.img-pro {
+    width: 35px;
+    height: 35px;
+}
+
+.addPeople {
+    float: right;
+}

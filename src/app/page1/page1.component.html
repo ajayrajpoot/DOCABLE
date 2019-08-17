@@ -1,0 +1,214 @@
+<div class="myheader"> </div>
+
+<div class="container">
+  <div class="link"> OBJECTIVE > CREATE OBJECTIVE</div>
+</div>
+<div class="container">
+  <!-- Content here -->
+
+  <div class="row">
+
+    <div class="col-sm col-md-3 processBar">
+      <!-- <div class="card myCard processBar">
+        <div class="card-body"> -->
+          <ul>
+            <li class="" [ngClass]="{active:true,cActive:true}">DEFINE OBJECTIVE</li>
+            <li [ngClass]="{active:(cColl2=='2o'||cColl3=='3o'),cActive:(cColl2=='2o'||cColl3=='3o')}">KRA</li>
+            <li [ngClass]="{active:(cColl3=='3o'),cActive:(cColl3=='3o')}">WEIGHTAGE & PRIVACY.</li>
+            <li class="su">SUBMIT</li>
+          </ul>
+        <!-- </div>
+      </div> -->
+
+
+    </div>
+    <div class="col-sm col-md-6">
+      <form [formGroup]="pFrm" (ngSubmit)="pFrm.valid? onSubmit():markFormGroupTouched()">
+        <div class="accordion" id="accordionExample">
+          <div class="card myCard">
+            <div (click)="collapseMe('1')" class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              DEFINE OBJECTIVE
+              <i class="fa fa-plus" (click)="cColl1='1o'" *ngIf="cColl1=='1c'"></i>
+              <i class="fa fa-minus" (click)="cColl1='1c'" *ngIf="cColl1=='1o'"></i>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <div class="form-group">
+                      <input type="text" class="form-control input-title" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Title " formControlName="title">
+                      <div *ngIf="formErrors.title!=''" class="error">{{formErrors.title}}</div>
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <h4>Description</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.Lorem ipsum
+                      dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.Lorem ipsum dolor sit
+                      amet, consectetur adipiscing elit.</p>
+                  </div>
+                  <div class="col-md-12">
+                    <span class="lbl">Timeline</span></div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <!--  <label for="exampleInputPassword1">TimeLine</label> -->
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"> <i class="fa fa-calendar"></i></span>
+                      </div>
+                      <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="timeLineFrom">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="input-group">
+                      <!--  <label for="exampleInputPassword1">TimeLine</label> -->
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"> <i class="fa fa-calendar"></i></span>
+                      </div>
+                      <input type="date" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" formControlName="timeLineTo">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class=" lbl">Owner</label>
+                      <select class="form-control input-sm" formControlName="owner">
+                        <option selected>Choose...</option>
+                        <option>Individual</option>
+                        <option>Multiple</option>
+                        <option>Shared</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div formArrayName="ownerName">
+                    <div class="col-md-12" *ngFor="let project of pFrm.get('ownerName').controls; let i=index">
+                      <div class="form-group " [formGroupName]="i">
+                        <img src="../assets/pic.jpg" class="img-pro" style="width: 10%;float: left">
+                        <input type="email" class="form-control input-title" placeholder="ownerName " style="width: 90%;float: right;"
+                          formControlName="name" (focus)="onFocush(i)" (focusout)="onFocushout(i)" >
+                          <!-- <input type="email" class="form-control input-title" placeholder="ownerName " style="width: 90%;float: right;"
+                          [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" >{{searchText}} -->
+                          <!-- {{pFrm.controls.ownerName.controls[i].get('name').value }} -->
+                        <div class="uList" *ngIf="showUserList==i">
+                          <div class="uListli" *ngFor="let ul of userList|search:pFrm.controls.ownerName.controls[i].get('name').value; let k=index" (click)="setValue(i,ul.name)">{{ul.name}}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <input *ngIf="pFrm.get('owner').value=='Multiple'" type="button" value="+ ADD PEOPLE" class="addPeople btn"
+                      (click)="addNewCompany()">
+
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class=" lbl">Alignment</label>
+                      <select  class="form-control input-sm" formControlName="alignment">
+                        <option selected>Choose...</option>
+                        <option>Functional Skill</option>
+                        <option>BSC Category</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+
+                    <div class="form-check" *ngFor="let l of alig" [hidden]="!(pFrm.get('alignment').value=='Functional Skill')">
+                      <label class="form-check-label">
+                        <input type="radio" [value]="l" class="form-check-input" name="Type" formControlName="Type">{{l}}
+                      </label>
+                    </div>
+                    <div class="form-check" *ngFor="let l of alig4" [hidden]="!(pFrm.get('alignment').value=='BSC Category')">
+                      <label class="form-check-label">
+                        <input type="radio" [value]="l" class="form-check-input" name="Type" formControlName="Type">{{l}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="card myCard">
+            <div (click)="collapseMe('2')" class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo"
+              aria-expanded="false" aria-controls="collapseTwo">
+
+              KEY RESULT AREAS
+              <i class="fa fa-plus" *ngIf="cColl2=='2c'"></i>
+              <i class="fa fa-minus" *ngIf="cColl2=='2o'"></i>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class=" lbl">Key Result 1</label>
+                      <input type="text" class="form-control input-title" placeholder="keyResult1 " formControlName="keyResult1">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class=" lbl">Key Result 2</label>
+                      <input type="text" class="form-control input-title" placeholder="keyResult2 " formControlName="keyResult2">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card myCard">
+            <div (click)="collapseMe('3')" class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree"
+              aria-expanded="false" aria-controls="collapseThree">
+              WEIGHTAGE & PRIVACY
+
+              <i class="fa fa-plus" *ngIf="cColl3=='3c'"></i>
+              <i class="fa fa-minus" *ngIf="cColl3=='3o'"></i>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class=" lbl">Weightage</label>
+                      <input type="text" class="form-control input-title" placeholder="weightage " formControlName="weightage">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class=" lbl" >Privacy </label>
+                      <input type="text" class="form-control input-title" placeholder="privacy " formControlName="privacy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btnUpdate">
+          <input type="button" value="Reset" class="btn btn-secondary full">
+          <input type="submit" value="Save" class="btn btn-success full" (click)="markFormGroupTouched();logValidationErrors()" >
+        </div>
+      </form>
+    </div>
+    <div class="col-sm col-md-3">
+      <div class="card myCard">
+        <div class="card-header">
+          SUMMARY
+        </div>
+        <div class="card-body" style="min-height: 300px">
+            <blockquote class="blockquote mb-0">
+            <ul class="listDetail">
+              <li *ngFor="let l of result"><b>{{l.title}}</b></li>
+            </ul>
+          </blockquote>
+        </div>
+        <div class="card-footer saveprogress">SAVE PROGRESS
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
